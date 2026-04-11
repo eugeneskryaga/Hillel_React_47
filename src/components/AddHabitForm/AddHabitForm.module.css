@@ -3,9 +3,10 @@
 }
 
 .form input {
-    height: 24px;
+    height: 28px;
     margin-right: 10px;
     background-color: lightskyblue;
+    border-radius: 8px;
 }
 
 .form button {
