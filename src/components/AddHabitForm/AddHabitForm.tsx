@@ -1,0 +1,34 @@
+import { selectAddHabit, useHabitStore } from "../../store/habitStore";
+import type { Habit } from "../../types/types";
+import css from "./AddHabitForm.module.css";
+
+export const AddHabitForm = () => {
+  const addHabit = useHabitStore(selectAddHabit);
+
+  const handleSubmit = (data: FormData) => {
+    const title = data.get("title") as string;
+
+    if (title.trim()) {
+      const habit: Habit = {
+        id: crypto.randomUUID(),
+        title,
+        completedToday: false,
+      };
+      addHabit(habit);
+    }
+  };
+
+  return (
+    <form
+      action={handleSubmit}
+      className={css.form}
+    >
+      <input
+        type="text"
+        name="title"
+        placeholder="Enter new habit"
+      />
+      <button>Add</button>
+    </form>
+  );
+};

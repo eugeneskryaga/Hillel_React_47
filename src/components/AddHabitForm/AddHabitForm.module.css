@@ -1,0 +1,14 @@
+.form {
+    padding: 20px;
+}
+
+.form input {
+    height: 24px;
+    margin-right: 10px;
+    background-color: lightskyblue;
+}
+
+.form button {
+    width: 60px;
+}
+

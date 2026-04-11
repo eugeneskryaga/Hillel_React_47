@@ -1,0 +1,27 @@
+body {
+    background-color: lightskyblue;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: darkcyan;
+    padding: 6px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+hr {
+    margin: 0;
+}
