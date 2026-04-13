@@ -1,5 +1,4 @@
 import { selectAddHabit, useHabitStore } from "../../store/habitStore";
-import type { Habit } from "../../types/types";
 import css from "./AddHabitForm.module.css";
 
 export const AddHabitForm = () => {
