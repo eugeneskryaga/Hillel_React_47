@@ -1,5 +1,5 @@
 import {
-  selectChangeHabitStatus,
+  selectToggleHabit,
   selectRemoveHabit,
   useHabitStore,
 } from "../../store/habitStore";
@@ -12,12 +12,12 @@ interface Props {
 
 export const HabitListItem = ({ habit }: Props) => {
   const deleteHabit = useHabitStore(selectRemoveHabit);
-  const changeHabitStatus = useHabitStore(selectChangeHabitStatus);
+  const toggleHabit = useHabitStore(selectToggleHabit);
 
   return (
     <>
       <input
-        onChange={() => changeHabitStatus(habit.id)}
+        onChange={() => toggleHabit(habit.id)}
         type="checkbox"
         checked={habit.completedToday}
         className={css.checkbox}

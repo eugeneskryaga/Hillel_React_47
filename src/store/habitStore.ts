@@ -49,4 +49,4 @@ export const useHabitStore = create<HabitStore>()(
 export const selectHabits = (state: HabitStore) => state.habits;
 export const selectAddHabit = (state: HabitStore) => state.addHabit;
 export const selectRemoveHabit = (state: HabitStore) => state.removeHabit;
-export const selectChangeHabitStatus = (state: HabitStore) => state.toggleHabit;
+export const selectToggleHabit = (state: HabitStore) => state.toggleHabit;
