@@ -9,12 +9,7 @@ export const AddHabitForm = () => {
     const title = data.get("title") as string;
 
     if (title.trim()) {
-      const habit: Habit = {
-        id: crypto.randomUUID(),
-        title,
-        completedToday: false,
-      };
-      addHabit(habit);
+      addHabit(title);
     }
   };
 
