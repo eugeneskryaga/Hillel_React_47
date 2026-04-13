@@ -1,9 +1,11 @@
-import { selectHabits, useHabitStore } from "../../store/habitStore";
+import { useSelector } from "react-redux";
 import { HabitListItem } from "../HabitListItem/HabitListItem";
+import { selectHabits } from "../../store/habits/habitsSelector";
+
 import css from "./HabitList.module.css";
 
 export const HabitList = () => {
-  const habits = useHabitStore(selectHabits);
+  const habits = useSelector(selectHabits);
 
   return habits.length > 0 ? (
     <ul className={css.list}>
