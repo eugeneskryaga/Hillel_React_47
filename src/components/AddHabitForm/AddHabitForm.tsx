@@ -6,8 +6,9 @@ export const AddHabitForm = () => {
 
   const handleSubmit = (data: FormData) => {
     const title = data.get("title") as string;
+    const validTitle = title.trim();
 
-    if (title.trim()) {
+    if (validTitle) {
       addHabit(title);
     }
   };
