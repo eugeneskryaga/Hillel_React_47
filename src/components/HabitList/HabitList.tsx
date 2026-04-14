@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { HabitListItem } from "../HabitListItem/HabitListItem";
-import { selectHabits } from "../../store/habits/habitsSelector";
+import { selectHabits } from "../../store/habits/habitsSelectors";
 
 import css from "./HabitList.module.css";
 

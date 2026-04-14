@@ -4,18 +4,12 @@ import {
   type PersistConfig,
   persistStore,
   persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig: PersistConfig<HabitsState> = {
   key: "habits",
-  storage,
+  storage: (storage as any).default,
 };
 
 const persistedHabitReducer = persistReducer(persistConfig, habitsReducer);
@@ -26,9 +20,7 @@ export const store = configureStore({
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      serializableCheck: false,
     }),
 });
 

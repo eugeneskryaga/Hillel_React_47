@@ -25,11 +25,10 @@ const habitsSlice = createSlice({
       state.habits = state.habits.filter(habit => habit.id !== action.payload);
     },
     toggleHabit: (state, action: PayloadAction<Habit["id"]>) => {
-      state.habits.map(habit =>
-        habit.id === action.payload
-          ? (habit.completedToday = !habit.completedToday)
-          : habit,
-      );
+      const habit = state.habits.find(habit => habit.id === action.payload);
+      if (habit) {
+        habit.completedToday = !habit.completedToday;
+      }
     },
   },
 });
