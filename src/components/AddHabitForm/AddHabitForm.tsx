@@ -9,7 +9,7 @@ export const AddHabitForm = () => {
     const validTitle = title.trim();
 
     if (validTitle) {
-      addHabit(title);
+      addHabit(validTitle);
     }
   };
 
