@@ -7,9 +7,14 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+type StorageWithDefault = {
+  default?: typeof storage;
+};
+
 const persistConfig: PersistConfig<HabitsState> = {
   key: "habits",
-  storage: (storage as any).default,
+  storage: (storage as StorageWithDefault).default ?? storage,
+  whitelist: ["habits"],
 };
 
 const persistedHabitReducer = persistReducer(persistConfig, habitsReducer);
