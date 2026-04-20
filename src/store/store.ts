@@ -1,35 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import habitsReducer, { type HabitsState } from "./habits/habitsSlice";
-import {
-  type PersistConfig,
-  persistStore,
-  persistReducer,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
-
-type StorageWithDefault = {
-  default?: typeof storage;
-};
-
-const persistConfig: PersistConfig<HabitsState> = {
-  key: "habits",
-  storage: (storage as StorageWithDefault).default ?? storage,
-  whitelist: ["habits"],
-};
-
-const persistedHabitReducer = persistReducer(persistConfig, habitsReducer);
+import habitsReducer from "./habits/habitsSlice";
 
 export const store = configureStore({
   reducer: {
-    habits: persistedHabitReducer,
+    habits: habitsReducer,
   },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
 });
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-
-export const persistor = persistStore(store);

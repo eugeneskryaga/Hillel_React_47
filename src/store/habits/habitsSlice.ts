@@ -1,37 +1,80 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import {
+  addHabitOperation,
+  getHabitsOperation,
+  removeHabitOperation,
+  toggleHabitOperation,
+} from "./habitsOperations";
 import type { Habit } from "../../types/types";
 
 export interface HabitsState {
   habits: Habit[];
+  isLoading: boolean;
+  isError: boolean;
 }
 
 const initialState: HabitsState = {
   habits: [],
+  isLoading: false,
+  isError: false,
 };
 
 const habitsSlice = createSlice({
   name: "habits",
   initialState,
-  reducers: {
-    addHabit: (state, action: PayloadAction<Habit["title"]>) => {
-      const habit = {
-        id: crypto.randomUUID(),
-        title: action.payload,
-        completedToday: false,
-      };
-      state.habits.push(habit);
-    },
-    removeHabit: (state, action: PayloadAction<Habit["id"]>) => {
-      state.habits = state.habits.filter(habit => habit.id !== action.payload);
-    },
-    toggleHabit: (state, action: PayloadAction<Habit["id"]>) => {
-      const habit = state.habits.find(habit => habit.id === action.payload);
-      if (habit) {
-        habit.completedToday = !habit.completedToday;
-      }
-    },
-  },
+  reducers: {},
+  extraReducers: builder =>
+    builder
+      .addCase(getHabitsOperation.fulfilled, (state, { payload }) => {
+        state.habits = payload;
+      })
+      .addCase(removeHabitOperation.fulfilled, (state, { payload }) => {
+        state.habits = state.habits.filter(item => item.id !== payload.id);
+      })
+      .addCase(addHabitOperation.fulfilled, (state, { payload }) => {
+        state.habits.push(payload);
+      })
+      .addCase(toggleHabitOperation.fulfilled, (state, { payload }) => {
+        const index = state.habits.findIndex(item => item.id === payload.id);
+        if (index !== -1) {
+          state.habits[index] = payload;
+        }
+      })
+      .addMatcher(
+        isAnyOf(
+          getHabitsOperation.pending,
+          removeHabitOperation.pending,
+          addHabitOperation.pending,
+          toggleHabitOperation.pending,
+        ),
+        state => {
+          state.isLoading = true;
+        },
+      )
+      .addMatcher(
+        isAnyOf(
+          getHabitsOperation.rejected,
+          removeHabitOperation.rejected,
+          addHabitOperation.rejected,
+          toggleHabitOperation.rejected,
+        ),
+        state => {
+          state.isLoading = false;
+          state.isError = true;
+        },
+      )
+      .addMatcher(
+        isAnyOf(
+          getHabitsOperation.fulfilled,
+          removeHabitOperation.fulfilled,
+          addHabitOperation.fulfilled,
+          toggleHabitOperation.fulfilled,
+        ),
+        state => {
+          state.isLoading = false;
+          state.isError = false;
+        },
+      ),
 });
 
-export const { addHabit, removeHabit, toggleHabit } = habitsSlice.actions;
 export default habitsSlice.reducer;

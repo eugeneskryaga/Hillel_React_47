@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
-import { addHabit } from "../../store/habits/habitsSlice";
 import type { AppDispatch } from "../../store/store";
 
 import css from "./AddHabitForm.module.css";
+import { addHabitOperation } from "../../store/habits/habitsOperations";
+import type { Habit } from "../../types/types";
 
 export const AddHabitForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -12,7 +13,12 @@ export const AddHabitForm = () => {
     const validTitle = title.trim();
 
     if (validTitle) {
-      dispatch(addHabit(validTitle));
+      const habit: Habit = {
+        id: crypto.randomUUID(),
+        title: validTitle,
+        completedToday: false,
+      };
+      dispatch(addHabitOperation(habit));
     }
   };
 
